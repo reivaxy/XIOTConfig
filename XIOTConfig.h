@@ -16,7 +16,7 @@
 // Should be in some common header file...
 #define DEFAULT_APSSID "iotinator" 
 #define DEFAULT_APPWD "iotinator"
-#define DEFAULT_AP_EXPOSITION 60000
+#define DEFAULT_AP_EXPOSITION 30000
 
 #define SSID_MAX_LENGTH 20
 #define PWD_MAX_LENGTH 50
