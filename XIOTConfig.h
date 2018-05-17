@@ -1,11 +1,12 @@
 /**
- *  Common config stuff for iotinator master and slave modules 
- *  Xavier Grosjean 2017
+ *  Common config stuff for iotinator iotinator master and slave modules 
+ *  Xavier Grosjean 2018
  *  Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International Public License
  */
  
 #pragma once
 
+#include <XUtils.h>
 #include <XEEPROMConfig.h>
 
 
@@ -20,3 +21,26 @@
 
 #define SSID_MAX_LENGTH 20
 #define PWD_MAX_LENGTH 50
+
+
+// Common config structure all modules should use
+struct ModuleConfigStruct:XEEPROMConfigDataStruct {
+  // First two members version and name are mandatory and inherited from XEEPROMConfigDataStruct
+    
+  char ssid[SSID_MAX_LENGTH + 1];
+  char pwd[PWD_MAX_LENGTH + 1];
+   
+};
+
+class ModuleConfigClass:public XEEPROMConfigClass {
+public:
+  ModuleConfigClass(unsigned int version, const char* name);
+  ModuleConfigClass(unsigned int version, const char* name, unsigned int dataSize);
+  void initFromDefault();
+  void setSsid(const char* ssid);
+  void setPwd(const char* pwd);
+  const char* getSsid(void);
+  const char* getPwd(void);
+protected:
+  ModuleConfigStruct* _getDataPtr(void);  
+};
