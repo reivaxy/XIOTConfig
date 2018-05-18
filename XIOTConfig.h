@@ -19,14 +19,16 @@
 #define DEFAULT_APPWD "iotinator"
 #define DEFAULT_AP_EXPOSITION 30000
 
+#define NAME_MAX_LENGTH 20
+
 #define SSID_MAX_LENGTH 20
 #define PWD_MAX_LENGTH 50
 
 
 // Common config structure all modules should use
 struct ModuleConfigStruct:XEEPROMConfigDataStruct {
-  // First two members version and name are mandatory and inherited from XEEPROMConfigDataStruct
-    
+  // First member (version number) is inherited from XEEPROMConfigDataStruct   
+  char name[NAME_MAX_LENGTH + 1];
   char ssid[SSID_MAX_LENGTH + 1];
   char pwd[PWD_MAX_LENGTH + 1];
    
@@ -37,6 +39,8 @@ public:
   ModuleConfigClass(unsigned int version, const char* name);
   ModuleConfigClass(unsigned int version, const char* name, unsigned int dataSize);
   void initFromDefault();
+  char* getName(void);
+  void setName(const char*);  
   void setSsid(const char* ssid);
   void setPwd(const char* pwd);
   const char* getSsid(void);

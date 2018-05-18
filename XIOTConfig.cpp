@@ -6,10 +6,12 @@
  
  #include "XIOTConfig.h"
   
- ModuleConfigClass::ModuleConfigClass(unsigned int version, const char* name):XEEPROMConfigClass(version, name, sizeof(ModuleConfigStruct)) {
+ ModuleConfigClass::ModuleConfigClass(unsigned int version, const char* name):XEEPROMConfigClass(version, sizeof(ModuleConfigStruct)) {
+   setName(name);
  }
   
- ModuleConfigClass::ModuleConfigClass(unsigned int version, const char* name, unsigned int dataSize):XEEPROMConfigClass(version, name, dataSize) {
+ ModuleConfigClass::ModuleConfigClass(unsigned int version, const char* name, unsigned int dataSize):XEEPROMConfigClass(version, dataSize) {
+   setName(name);
  }
  
  /**
@@ -25,6 +27,22 @@
  
  }
  
+ /**
+  * Set the name in the data structure
+  *
+  */
+ void ModuleConfigClass::setName(const char* name) {
+   XUtils::safeStringCopy(_getDataPtr()->name, name, NAME_MAX_LENGTH);
+ }
+ 
+ /**
+  * Get the name from the data structure
+  *
+  */
+ char* ModuleConfigClass::getName(void) {
+   return _getDataPtr()->name;
+ }
+
  void ModuleConfigClass::setSsid(const char* ssid) {
    XUtils::safeStringCopy(_getDataPtr()->ssid, ssid, SSID_MAX_LENGTH);
  }
