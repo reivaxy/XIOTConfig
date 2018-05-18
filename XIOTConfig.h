@@ -47,4 +47,5 @@ public:
   const char* getPwd(void);
 protected:
   ModuleConfigStruct* _getDataPtr(void);  
+  char _name[NAME_MAX_LENGTH + 1];  // to be able to restore default name
 };

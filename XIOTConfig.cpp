@@ -8,10 +8,12 @@
   
  ModuleConfigClass::ModuleConfigClass(unsigned int version, const char* name):XEEPROMConfigClass(version, sizeof(ModuleConfigStruct)) {
    setName(name);
+   XUtils::safeStringCopy(_name, name, NAME_MAX_LENGTH);
  }
   
  ModuleConfigClass::ModuleConfigClass(unsigned int version, const char* name, unsigned int dataSize):XEEPROMConfigClass(version, dataSize) {
    setName(name);
+   XUtils::safeStringCopy(_name, name, NAME_MAX_LENGTH);
  }
  
  /**
@@ -22,6 +24,7 @@
  void ModuleConfigClass::initFromDefault() {
    XEEPROMConfigClass::initFromDefault(); // handles version and name init 
    ModuleConfigStruct* configPtr = _getDataPtr();
+   setName(_name);
    setSsid(DEFAULT_APSSID);
    setPwd(DEFAULT_APPWD);
  
