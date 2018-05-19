@@ -7,8 +7,8 @@
  #include "XIOTConfig.h"
   
  ModuleConfigClass::ModuleConfigClass(unsigned int version, const char* name):XEEPROMConfigClass(version, sizeof(ModuleConfigStruct)) {
-   setName(name);
    XUtils::safeStringCopy(_name, name, NAME_MAX_LENGTH);
+   setName(name);
  }
   
  ModuleConfigClass::ModuleConfigClass(unsigned int version, const char* name, unsigned int dataSize):XEEPROMConfigClass(version, dataSize) {
@@ -44,6 +44,22 @@
   */
  char* ModuleConfigClass::getName(void) {
    return _getDataPtr()->name;
+ }
+
+ void ModuleConfigClass::setUiClassName(char* uiClassName) {
+   XUtils::safeStringCopy(_getDataPtr()->uiClassName, uiClassName, UI_CLASS_NAME_MAX_LENGTH);
+ }
+ 
+  char* ModuleConfigClass::getUiClassName(void) {
+   return _getDataPtr()->uiClassName;
+ }
+  
+  void ModuleConfigClass::setCanSleep(bool canSleep) {
+   _getDataPtr()->canSleep = canSleep;
+ }
+ 
+  bool ModuleConfigClass::getCanSleep(void) {
+   return _getDataPtr()->canSleep;
  }
 
  void ModuleConfigClass::setSsid(const char* ssid) {

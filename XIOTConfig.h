@@ -23,7 +23,7 @@
 
 #define SSID_MAX_LENGTH 20
 #define PWD_MAX_LENGTH 50
-
+#define UI_CLASS_NAME_MAX_LENGTH 30
 
 // Common config structure all modules should use
 struct ModuleConfigStruct:XEEPROMConfigDataStruct {
@@ -31,6 +31,11 @@ struct ModuleConfigStruct:XEEPROMConfigDataStruct {
   char name[NAME_MAX_LENGTH + 1];
   char ssid[SSID_MAX_LENGTH + 1];
   char pwd[PWD_MAX_LENGTH + 1];
+  // Name of the User Interface class to use to handle this module.
+  char uiClassName[UI_CLASS_NAME_MAX_LENGTH + 1];
+  // This module is allowed to use the sleep feature
+  // Warning make sure the hardware can wake it :)
+  bool canSleep = false;
    
 };
 
@@ -43,6 +48,10 @@ public:
   void setName(const char*);  
   void setSsid(const char* ssid);
   void setPwd(const char* pwd);
+  void setUiClassName(char* uiClassName);
+  char* getUiClassName(void);
+  void setCanSleep(bool flag);
+  bool getCanSleep(void);
   const char* getSsid(void);
   const char* getPwd(void);
 protected:
