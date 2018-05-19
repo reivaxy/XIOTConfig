@@ -12,8 +12,8 @@
  }
   
  ModuleConfigClass::ModuleConfigClass(unsigned int version, const char* name, unsigned int dataSize):XEEPROMConfigClass(version, dataSize) {
-   setName(name);
    XUtils::safeStringCopy(_name, name, NAME_MAX_LENGTH);
+   setName(name);
  }
  
  /**
