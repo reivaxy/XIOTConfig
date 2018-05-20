@@ -46,7 +46,7 @@
    return _getDataPtr()->name;
  }
 
- void ModuleConfigClass::setUiClassName(char* uiClassName) {
+ void ModuleConfigClass::setUiClassName(const char* uiClassName) {
    XUtils::safeStringCopy(_getDataPtr()->uiClassName, uiClassName, UI_CLASS_NAME_MAX_LENGTH);
  }
  

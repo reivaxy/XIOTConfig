@@ -17,7 +17,7 @@
 // Should be in some common header file...
 #define DEFAULT_APSSID "iotinator" 
 #define DEFAULT_APPWD "iotinator"
-#define DEFAULT_AP_EXPOSITION 10000
+#define DEFAULT_AP_EXPOSITION 25000
 
 #define NAME_MAX_LENGTH 20
 
@@ -48,7 +48,7 @@ public:
   void setName(const char*);  
   void setSsid(const char* ssid);
   void setPwd(const char* pwd);
-  void setUiClassName(char* uiClassName);
+  void setUiClassName(const char* uiClassName);
   char* getUiClassName(void);
   void setCanSleep(bool flag);
   bool getCanSleep(void);
