@@ -27,7 +27,7 @@
    setName(_name);
    setSsid(DEFAULT_APSSID);
    setPwd(DEFAULT_APPWD);
- 
+   setUiClassName(getDefaultUIClassName()); 
  }
  
  /**
@@ -42,7 +42,7 @@
   * Get the name from the data structure
   *
   */
- char* ModuleConfigClass::getName(void) {
+ const char* ModuleConfigClass::getName(void) {
    return _getDataPtr()->name;
  }
 
@@ -50,7 +50,7 @@
    XUtils::safeStringCopy(_getDataPtr()->uiClassName, uiClassName, UI_CLASS_NAME_MAX_LENGTH);
  }
  
-  char* ModuleConfigClass::getUiClassName(void) {
+  const char* ModuleConfigClass::getUiClassName(void) {
    return _getDataPtr()->uiClassName;
  }
   
@@ -78,6 +78,10 @@
    return _getDataPtr()->pwd;
  }
  
+ // This method should be overriden by modules to provide their default uiClassName
+ const char* ModuleConfigClass::getDefaultUIClassName() {
+   return "";
+ }
  /**
   * Return the typed data structure object
   *

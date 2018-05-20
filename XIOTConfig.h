@@ -44,16 +44,17 @@ public:
   ModuleConfigClass(unsigned int version, const char* name);
   ModuleConfigClass(unsigned int version, const char* name, unsigned int dataSize);
   void initFromDefault();
-  char* getName(void);
+  const char* getName(void);
   void setName(const char*);  
   void setSsid(const char* ssid);
   void setPwd(const char* pwd);
   void setUiClassName(const char* uiClassName);
-  char* getUiClassName(void);
+  const char* getUiClassName(void);
   void setCanSleep(bool flag);
   bool getCanSleep(void);
   const char* getSsid(void);
   const char* getPwd(void);
+  virtual const char* getDefaultUIClassName(void);
 protected:
   ModuleConfigStruct* _getDataPtr(void);  
   char _name[NAME_MAX_LENGTH + 1];  // to be able to restore default name
