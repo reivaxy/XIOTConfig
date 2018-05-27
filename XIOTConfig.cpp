@@ -6,12 +6,12 @@
  
  #include "XIOTConfig.h"
   
- ModuleConfigClass::ModuleConfigClass(unsigned int version, const char* name):XEEPROMConfigClass(version, sizeof(ModuleConfigStruct)) {
+ ModuleConfigClass::ModuleConfigClass(unsigned int version, const char* type, const char* name):XEEPROMConfigClass(version, type, sizeof(ModuleConfigStruct)) {
    XUtils::safeStringCopy(_name, name, NAME_MAX_LENGTH);
    setName(name);
  }
   
- ModuleConfigClass::ModuleConfigClass(unsigned int version, const char* name, unsigned int dataSize):XEEPROMConfigClass(version, dataSize) {
+ ModuleConfigClass::ModuleConfigClass(unsigned int version, const char* type, const char* name, unsigned int dataSize):XEEPROMConfigClass(version, type, dataSize) {
    XUtils::safeStringCopy(_name, name, NAME_MAX_LENGTH);
    setName(name);
  }

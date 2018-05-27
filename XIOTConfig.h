@@ -41,8 +41,8 @@ struct ModuleConfigStruct:XEEPROMConfigDataStruct {
 
 class ModuleConfigClass:public XEEPROMConfigClass {
 public:
-  ModuleConfigClass(unsigned int version, const char* name);
-  ModuleConfigClass(unsigned int version, const char* name, unsigned int dataSize);
+  ModuleConfigClass(unsigned int version, const char* type, const char* name);
+  ModuleConfigClass(unsigned int version, const char* type, const char* name, unsigned int dataSize);
   void initFromDefault();
   const char* getName(void);
   void setName(const char*);  
