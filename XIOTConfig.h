@@ -36,6 +36,7 @@ struct ModuleConfigStruct:XEEPROMConfigDataStruct {
   // This module is allowed to use the sleep feature
   // Warning make sure the hardware can wake it :)
   bool canSleep = false;
+  long pingPeriod = 30; // 30 seconds by default
    
 };
 
@@ -43,7 +44,7 @@ class ModuleConfigClass:public XEEPROMConfigClass {
 public:
   ModuleConfigClass(unsigned int version, const char* type, const char* name);
   ModuleConfigClass(unsigned int version, const char* type, const char* name, unsigned int dataSize);
-  void initFromDefault();
+  virtual void initFromDefault();
   const char* getName(void);
   void setName(const char*);  
   void setSsid(const char* ssid);
