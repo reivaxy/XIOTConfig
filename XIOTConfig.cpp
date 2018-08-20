@@ -101,7 +101,7 @@ uint8_t ModuleConfigClass::getBrightness() {
   return(_getDataPtr()->brightness);
 }
 
-bool ModuleConfigClass::getFlipScreent() {
+bool ModuleConfigClass::getFlipScreen() {
   return(_getDataPtr()->flipScreen);
 }
 

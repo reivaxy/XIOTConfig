@@ -70,7 +70,7 @@ public:
   virtual const char* getDefaultUIClassName(void);
   void setBrightness(uint8_t);
   uint8_t getBrightness();
-  bool getFlipScreent();
+  bool getFlipScreen();
   void setFlipScreen(bool);
 protected:
   ModuleConfigStruct* _getDataPtr(void);  
