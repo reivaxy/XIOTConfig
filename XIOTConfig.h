@@ -10,6 +10,10 @@
 #include <XEEPROMConfig.h>
 
 
+// Increment this when default config changes.
+// This gets added to each module version
+#define CONFIG_BASE_VERSION 1
+
 // The default Access Point SSID and Password are known and used by slave modules
 // to connect the first time.
 // Master module needs to open this AP when connecting a new slave, before it returns to
@@ -17,7 +21,13 @@
 // Should be in some common header file...
 #define DEFAULT_APSSID "iotinator" 
 #define DEFAULT_APPWD "iotinator"
+
 #define DEFAULT_AP_EXPOSITION 25000
+
+#define DEFAULT_FLIP_SCREEN true
+#define DEFAULT_BRIGHTNESS 200
+#define DEFAULT_CAN_SLEEP false
+
 
 #define NAME_MAX_LENGTH 20
 
@@ -35,8 +45,10 @@ struct ModuleConfigStruct:XEEPROMConfigDataStruct {
   char uiClassName[UI_CLASS_NAME_MAX_LENGTH + 1];
   // This module is allowed to use the sleep feature
   // Warning make sure the hardware can wake it :)
-  bool canSleep = false;
+  bool canSleep = DEFAULT_CAN_SLEEP;
   long pingPeriod = 30; // 30 seconds by default
+  bool flipScreen = DEFAULT_FLIP_SCREEN;
+  uint8_t brightness = DEFAULT_BRIGHTNESS;
    
 };
 
@@ -56,6 +68,10 @@ public:
   const char* getSsid(void);
   const char* getPwd(void);
   virtual const char* getDefaultUIClassName(void);
+  void setBrightness(uint8_t);
+  uint8_t getBrightness();
+  bool getFlipScreent();
+  void setFlipScreen(bool);
 protected:
   ModuleConfigStruct* _getDataPtr(void);  
   char _name[NAME_MAX_LENGTH + 1];  // to be able to restore default name
