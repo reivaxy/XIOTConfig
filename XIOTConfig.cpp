@@ -1,6 +1,6 @@
 /**
-*  Common config stuff for iotinator iotinator slave modules 
-*  Xavier Grosjean 2018
+*  base class for all iotinator agent and master modules
+*  Xavier Grosjean 2021
 *  Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International Public License
 */
 
@@ -8,12 +8,12 @@
 
 ModuleConfigClass::ModuleConfigClass(unsigned int version, const char* type, const char* name):XEEPROMConfigClass(version + CONFIG_BASE_VERSION, type, sizeof(ModuleConfigStruct)) {
   XUtils::safeStringCopy(_name, name, NAME_MAX_LENGTH);
-  setName(name);
+  setName(_name);
 }
 
 ModuleConfigClass::ModuleConfigClass(unsigned int version, const char* type, const char* name, unsigned int dataSize):XEEPROMConfigClass(version + CONFIG_BASE_VERSION, type, dataSize) {
   XUtils::safeStringCopy(_name, name, NAME_MAX_LENGTH);
-  setName(name);
+  setName(_name);
 }
 
 /**
@@ -23,14 +23,22 @@ ModuleConfigClass::ModuleConfigClass(unsigned int version, const char* type, con
 */
 void ModuleConfigClass::initFromDefault() {
   XEEPROMConfigClass::initFromDefault(); // handles version and name init 
-  ModuleConfigStruct* configPtr = _getDataPtr();
   setName(_name);
-  setSsid(DEFAULT_APSSID);
-  setPwd(DEFAULT_APPWD);
+  setXiotSsid(DEFAULT_XIOT_APSSID);
+  setXiotPwd(DEFAULT_XIOT_APPWD);
+  setBoxSsid(DEFAULT_BOX_APSSID);
+  setBoxPwd(DEFAULT_BOX_APPWD);
   setUiClassName(getDefaultUIClassName());
   setBrightness(DEFAULT_BRIGHTNESS);
   setFlipScreen(DEFAULT_FLIP_SCREEN);
   setCanSleep(DEFAULT_CAN_SLEEP); 
+  setIsAutonomous(DEFAULT_IS_AUTONOMOUS);
+
+  setWebSite(DEFAULT_WEBSITE);
+  setApiKey("");
+  setNtpServer(DEFAULT_NTP_SERVER);
+
+  setGmtOffset(DEFAULT_GMT_HOUR_OFFSSET, DEFAULT_GMT_MIN_OFFSSET);
 }
 
 /**
@@ -65,20 +73,36 @@ bool ModuleConfigClass::getCanSleep(void) {
   return _getDataPtr()->canSleep;
 }
 
-void ModuleConfigClass::setSsid(const char* ssid) {
-  XUtils::safeStringCopy(_getDataPtr()->ssid, ssid, SSID_MAX_LENGTH);
+void ModuleConfigClass::setXiotSsid(const char* ssid) {
+  XUtils::safeStringCopy(_getDataPtr()->xiotSsid, ssid, SSID_MAX_LENGTH);
 }
 
-const char* ModuleConfigClass::getSsid() {
-  return _getDataPtr()->ssid;
+const char* ModuleConfigClass::getXiotSsid() {
+  return _getDataPtr()->xiotSsid;
 }
 
-void ModuleConfigClass::setPwd(const char* pwd) {
-  XUtils::safeStringCopy(_getDataPtr()->pwd, pwd, PWD_MAX_LENGTH);
+void ModuleConfigClass::setBoxSsid(const char* ssid) {
+  XUtils::safeStringCopy(_getDataPtr()->boxSsid, ssid, SSID_MAX_LENGTH);
 }
 
-const char* ModuleConfigClass::getPwd() {
-  return _getDataPtr()->pwd;
+const char* ModuleConfigClass::getBoxSsid() {
+  return _getDataPtr()->boxSsid;
+}
+
+void ModuleConfigClass::setXiotPwd(const char* pwd) {
+  XUtils::safeStringCopy(_getDataPtr()->xiotPwd, pwd, PWD_MAX_LENGTH);
+}
+
+const char* ModuleConfigClass::getXiotPwd() {
+  return _getDataPtr()->xiotPwd;
+}
+
+void ModuleConfigClass::setBoxPwd(const char* pwd) {
+  XUtils::safeStringCopy(_getDataPtr()->boxPwd, pwd, PWD_MAX_LENGTH);
+}
+
+const char* ModuleConfigClass::getBoxPwd() {
+  return _getDataPtr()->boxPwd;
 }
 
 // This method should be overriden by modules to provide their default uiClassName
@@ -107,4 +131,35 @@ bool ModuleConfigClass::getFlipScreen() {
 
 void ModuleConfigClass::setFlipScreen(bool flip) {
   _getDataPtr()->flipScreen = flip;
+}
+
+bool ModuleConfigClass::getIsAutonomous() {
+  return(_getDataPtr()->isAutonomous);
+}
+
+void ModuleConfigClass::setIsAutonomous(bool autonomous) {
+  _getDataPtr()->isAutonomous = autonomous;
+}
+
+void ModuleConfigClass::setWebSite(const char* webSite) {
+  XUtils::safeStringCopy(_getDataPtr()->webSite, webSite, HOSTNAME_MAX_LENGTH);
+}
+void ModuleConfigClass::setApiKey(const char* apiKey) {
+  XUtils::safeStringCopy(_getDataPtr()->apiKey, apiKey, API_KEY_MAX_LENGTH);
+}
+void ModuleConfigClass::setNtpServer(const char* ntpHostName) {
+  XUtils::safeStringCopy(_getDataPtr()->ntpHostName, ntpHostName, HOSTNAME_MAX_LENGTH);
+}
+const char* ModuleConfigClass::getNtpServer() {
+  return _getDataPtr()->ntpHostName;
+}
+void ModuleConfigClass::setGmtOffset(int8_t hourOffset, int8_t minOffset) {
+  _getDataPtr()->gmtHourOffset = hourOffset;
+  _getDataPtr()->gmtMinOffset = hourOffset;
+}
+int8_t ModuleConfigClass::getGmtHourOffset() {
+  return _getDataPtr()->gmtHourOffset;
+} 
+int8_t ModuleConfigClass::getGmtMinOffset() {
+  return _getDataPtr()->gmtMinOffset;
 }
