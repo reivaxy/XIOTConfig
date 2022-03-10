@@ -38,7 +38,7 @@ void ModuleConfigClass::initFromDefault() {
   setApiKey("");
   setNtpServer(DEFAULT_NTP_SERVER);
 
-  setGmtOffset(DEFAULT_GMT_HOUR_OFFSSET, DEFAULT_GMT_MIN_OFFSSET);
+  setGmtOffset(DEFAULT_GMT_MIN_OFFSSET);
 }
 
 /**
@@ -153,13 +153,10 @@ void ModuleConfigClass::setNtpServer(const char* ntpHostName) {
 const char* ModuleConfigClass::getNtpServer() {
   return _getDataPtr()->ntpHostName;
 }
-void ModuleConfigClass::setGmtOffset(int8_t hourOffset, int8_t minOffset) {
-  _getDataPtr()->gmtHourOffset = hourOffset;
-  _getDataPtr()->gmtMinOffset = hourOffset;
+void ModuleConfigClass::setGmtOffset(int16_t minOffset) {
+  _getDataPtr()->gmtMinOffset = minOffset;
 }
-int8_t ModuleConfigClass::getGmtHourOffset() {
-  return _getDataPtr()->gmtHourOffset;
-} 
-int8_t ModuleConfigClass::getGmtMinOffset() {
+
+int16_t ModuleConfigClass::getGmtMinOffset() {
   return _getDataPtr()->gmtMinOffset;
 }

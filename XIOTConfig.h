@@ -12,7 +12,7 @@
 
 // Increment this when default config changes.
 // This gets added to each module version
-#define CONFIG_BASE_VERSION 2
+#define CONFIG_BASE_VERSION 3
 
 // The default Master Access Point SSID and Password are known and used by agent modules
 // to connect the first time (non autonomous module) or to expose an access point (autonomous module)
@@ -35,7 +35,6 @@
 #define DEFAULT_IS_AUTONOMOUS true
 
 #define NAME_MAX_LENGTH 20
-#define IP_MAX_LENGTH 15
 
 #define SSID_MAX_LENGTH 20
 #define PWD_MAX_LENGTH 50
@@ -45,8 +44,7 @@
 #define API_KEY_MAX_LENGTH 40
 #define DEFAULT_WEBSITE "http://www.iotinator.com/"
 #define DEFAULT_NTP_SERVER "time.google.com"
-#define DEFAULT_GMT_HOUR_OFFSSET 2
-#define DEFAULT_GMT_MIN_OFFSSET 0
+#define DEFAULT_GMT_MIN_OFFSSET 120
 
 // Common config structure all modules must use
 // First 2 members (version number and type) are inherited from XEEPROMConfigDataStruct   
@@ -79,8 +77,13 @@ struct ModuleConfigStruct:XEEPROMConfigDataStruct {
     
   // ntp server
   char ntpHostName[HOSTNAME_MAX_LENGTH + 1];
-  int8_t gmtHourOffset = DEFAULT_GMT_HOUR_OFFSSET;
-  int8_t gmtMinOffset = DEFAULT_GMT_MIN_OFFSSET;
+  int16_t gmtMinOffset = DEFAULT_GMT_MIN_OFFSSET;
+
+  // Will see if this is a useful idea:
+  // This is intended to absorb future changes to the structure above so that there is no need to 
+  // reset an already configured module. If you add a field above this, just decrease the
+  // dummyBuffer size by the same amount of bytes. Beware of the default values init for the new fields, though
+  int8_t dummyBuffer[100];
    
 };
 
@@ -88,7 +91,7 @@ class ModuleConfigClass:public XEEPROMConfigClass {
 public:
   ModuleConfigClass(unsigned int version, const char* type, const char* name);
   ModuleConfigClass(unsigned int version, const char* type, const char* name, unsigned int dataSize);
-  virtual void initFromDefault();
+  virtual void initFromDefault() override;
   const char* getName(void);
   void setName(const char*);  
   void setXiotSsid(const char* ssid);
@@ -115,13 +118,12 @@ public:
   void setWebSite(const char* webSite);
   void setApiKey(const char* apiKey);
   void setNtpServer(const char* ntpServer);
-  void setGmtOffset(int8_t hour, int8_t min); 
+  void setGmtOffset(int16_t min); 
   
   const char* getWebSite(void);
   const char* getApiKey(void);
   const char* getNtpServer(void);
-  int8_t getGmtHourOffset(); 
-  int8_t getGmtMinOffset();
+  int16_t getGmtMinOffset();
 
   bool isHomeWifiConfigured(void);
   bool isAPInitialized(void);
