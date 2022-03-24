@@ -39,6 +39,8 @@ void ModuleConfigClass::initFromDefault() {
   setNtpServer(DEFAULT_NTP_SERVER);
 
   setGmtOffset(DEFAULT_GMT_MIN_OFFSSET);
+  setPushoverToken("");
+  setPushoverUser("");
 }
 
 /**
@@ -159,4 +161,16 @@ void ModuleConfigClass::setGmtOffset(int16_t minOffset) {
 
 int16_t ModuleConfigClass::getGmtMinOffset() {
   return _getDataPtr()->gmtMinOffset;
+}
+void ModuleConfigClass::setPushoverToken(const char* token) {
+  XUtils::safeStringCopy(_getDataPtr()->pushOverToken, token, PUSHOVER_SECRETS_MAX_LENGTH);
+}
+void ModuleConfigClass::setPushoverUser(const char* user) {
+  XUtils::safeStringCopy(_getDataPtr()->pushOverUser, user, PUSHOVER_SECRETS_MAX_LENGTH);
+}
+const char* ModuleConfigClass::getPushoverToken() {
+  return(_getDataPtr()->pushOverToken);
+}
+const char* ModuleConfigClass::getPushoverUser() {
+  return(_getDataPtr()->pushOverUser);
 }
