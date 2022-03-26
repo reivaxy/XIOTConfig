@@ -12,7 +12,7 @@
 
 // Increment this when default config changes.
 // This gets added to each module version
-#define CONFIG_BASE_VERSION 4
+#define CONFIG_BASE_VERSION 5
 
 // The default Master Access Point SSID and Password are known and used by agent modules
 // to connect the first time (non autonomous module) or to expose an access point (autonomous module)
@@ -41,12 +41,14 @@
 #define UI_CLASS_NAME_MAX_LENGTH 30
 
 #define HOSTNAME_MAX_LENGTH 50
+#define URL_MAX_LENGTH 150
 #define API_KEY_MAX_LENGTH 40
 #define DEFAULT_WEBSITE "http://www.iotinator.com/"
 #define DEFAULT_NTP_SERVER "time.google.com"
 #define DEFAULT_GMT_MIN_OFFSSET 120
 
 #define PUSHOVER_SECRETS_MAX_LENGTH 40
+
 // Common config structure all modules must use
 // First 2 members (version number and type) are inherited from XEEPROMConfigDataStruct   
 struct ModuleConfigStruct:XEEPROMConfigDataStruct {
@@ -84,6 +86,9 @@ struct ModuleConfigStruct:XEEPROMConfigDataStruct {
   char pushOverUser[PUSHOVER_SECRETS_MAX_LENGTH + 1];
   char pushOverToken[PUSHOVER_SECRETS_MAX_LENGTH + 1];
 
+  char fireBaseDBUrl[URL_MAX_LENGTH + 1];
+  bool sendPing = false;
+
   // Will see if this is a useful idea:
   // This is intended to absorb future small changes to the structure above so that there is no need to 
   // reset an already configured module. If you add a field above this, just decrease the
@@ -120,6 +125,8 @@ public:
 
   void setIsAutonomous(bool);
   bool getIsAutonomous();
+  void setSendPing(bool);
+  bool getSendPing();
 
   void setWebSite(const char* webSite);
   void setApiKey(const char* apiKey);
@@ -135,10 +142,16 @@ public:
   const char* getPushoverToken();
   void setPushoverUser(const char* user);
   void setPushoverToken(const char* token);
+  
+  const char* getFirebaseUrl();
+  void setFirebaseUrl(const char* url);
 
   bool isHomeWifiConfigured(void);
   bool isAPInitialized(void);
-
+  int sendPing();
+  const char* getSTASsid();
+  const char* getSTAPwd();
+  
 protected:
   ModuleConfigStruct* _getDataPtr(void);  
   char _name[NAME_MAX_LENGTH + 1];  // to be able to restore default name

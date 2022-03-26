@@ -41,6 +41,8 @@ void ModuleConfigClass::initFromDefault() {
   setGmtOffset(DEFAULT_GMT_MIN_OFFSSET);
   setPushoverToken("");
   setPushoverUser("");
+  setFirebaseUrl("");
+  setSendPing(false);
 }
 
 /**
@@ -173,4 +175,37 @@ const char* ModuleConfigClass::getPushoverToken() {
 }
 const char* ModuleConfigClass::getPushoverUser() {
   return(_getDataPtr()->pushOverUser);
+}
+void ModuleConfigClass::setFirebaseUrl(const char* url) {
+  XUtils::safeStringCopy(_getDataPtr()->fireBaseDBUrl, url, URL_MAX_LENGTH);
+}
+const char* ModuleConfigClass::getFirebaseUrl() {
+  return(_getDataPtr()->fireBaseDBUrl);
+}
+bool ModuleConfigClass::getSendPing() {
+  return(_getDataPtr()->sendPing);
+}
+
+void ModuleConfigClass::setSendPing(bool sendPing) {
+  _getDataPtr()->sendPing = sendPing;
+}
+
+// Autonomous modules connect to the internet home box
+// Non Autonomous modules connect to the master exposed SSID
+const char* ModuleConfigClass::getSTASsid() {
+  if (getIsAutonomous()) {
+    return getBoxSsid();
+  } else {
+    return getXiotSsid();
+  }
+}
+
+// Autonomous modules connect to the internet home box
+// Non Autonomous modules connect to the master exposed SSID
+const char* ModuleConfigClass::getSTAPwd() {
+  if (getIsAutonomous()) {
+    return getBoxPwd();
+  } else {
+    return getXiotPwd();
+  }
 }
