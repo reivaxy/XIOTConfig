@@ -42,7 +42,7 @@ void ModuleConfigClass::initFromDefault() {
   setPushoverToken("");
   setPushoverUser("");
   setFirebaseUrl("");
-  setSendPing(false);
+  setSendFirebasePing(false);
 }
 
 /**
@@ -182,12 +182,12 @@ void ModuleConfigClass::setFirebaseUrl(const char* url) {
 const char* ModuleConfigClass::getFirebaseUrl() {
   return(_getDataPtr()->fireBaseDBUrl);
 }
-bool ModuleConfigClass::getSendPing() {
-  return(_getDataPtr()->sendPing);
+bool ModuleConfigClass::getSendFirebasePing() {
+  return(_getDataPtr()->sendFirebasePing);
 }
 
-void ModuleConfigClass::setSendPing(bool sendPing) {
-  _getDataPtr()->sendPing = sendPing;
+void ModuleConfigClass::setSendFirebasePing(bool sendPing) {
+  _getDataPtr()->sendFirebasePing = sendPing;
 }
 
 // Autonomous modules connect to the internet home box

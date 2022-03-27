@@ -87,7 +87,7 @@ struct ModuleConfigStruct:XEEPROMConfigDataStruct {
   char pushOverToken[PUSHOVER_SECRETS_MAX_LENGTH + 1];
 
   char fireBaseDBUrl[URL_MAX_LENGTH + 1];
-  bool sendPing = false;
+  bool sendFirebasePing = false;
 
   // Will see if this is a useful idea:
   // This is intended to absorb future small changes to the structure above so that there is no need to 
@@ -125,8 +125,8 @@ public:
 
   void setIsAutonomous(bool);
   bool getIsAutonomous();
-  void setSendPing(bool);
-  bool getSendPing();
+  void setSendFirebasePing(bool);
+  bool getSendFirebasePing();
 
   void setWebSite(const char* webSite);
   void setApiKey(const char* apiKey);
@@ -148,7 +148,6 @@ public:
 
   bool isHomeWifiConfigured(void);
   bool isAPInitialized(void);
-  int sendPing();
   const char* getSTASsid();
   const char* getSTAPwd();
   
