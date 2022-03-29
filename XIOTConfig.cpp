@@ -42,6 +42,7 @@ void ModuleConfigClass::initFromDefault() {
   setPushoverToken("");
   setPushoverUser("");
   setFirebaseUrl("");
+  setFirebaseSecretToken("");
   setSendFirebasePing(false);
 }
 
@@ -181,6 +182,13 @@ void ModuleConfigClass::setFirebaseUrl(const char* url) {
 }
 const char* ModuleConfigClass::getFirebaseUrl() {
   return(_getDataPtr()->fireBaseDBUrl);
+}
+
+void ModuleConfigClass::setFirebaseSecretToken(const char* token) {
+  XUtils::safeStringCopy(_getDataPtr()->fireBaseSecretToken, token, FIREBASE_SECRET_MAX_LENGTH);
+}
+const char* ModuleConfigClass::getFirebaseSecretToken() {
+  return(_getDataPtr()->fireBaseSecretToken);
 }
 bool ModuleConfigClass::getSendFirebasePing() {
   return(_getDataPtr()->sendFirebasePing);

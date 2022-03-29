@@ -12,7 +12,7 @@
 
 // Increment this when default config changes.
 // This gets added to each module version
-#define CONFIG_BASE_VERSION 5
+#define CONFIG_BASE_VERSION 6
 
 // The default Master Access Point SSID and Password are known and used by agent modules
 // to connect the first time (non autonomous module) or to expose an access point (autonomous module)
@@ -87,6 +87,8 @@ struct ModuleConfigStruct:XEEPROMConfigDataStruct {
   char pushOverToken[PUSHOVER_SECRETS_MAX_LENGTH + 1];
 
   char fireBaseDBUrl[URL_MAX_LENGTH + 1];
+  #define FIREBASE_SECRET_MAX_LENGTH 50
+  char fireBaseSecretToken[FIREBASE_SECRET_MAX_LENGTH + 1];
   bool sendFirebasePing = false;
 
   // Will see if this is a useful idea:
@@ -144,7 +146,9 @@ public:
   void setPushoverToken(const char* token);
   
   const char* getFirebaseUrl();
-  void setFirebaseUrl(const char* url);
+  void setFirebaseUrl(const char* url);  
+  const char* getFirebaseSecretToken();
+  void setFirebaseSecretToken(const char* token);
 
   bool isHomeWifiConfigured(void);
   bool isAPInitialized(void);
