@@ -45,7 +45,7 @@
 #define API_KEY_MAX_LENGTH 40
 #define DEFAULT_WEBSITE "http://www.iotinator.com/"
 #define DEFAULT_NTP_SERVER "time.google.com"
-#define DEFAULT_GMT_MIN_OFFSSET 120
+#define DEFAULT_GMT_MIN_OFFSSET 60
 
 #define PUSHOVER_SECRETS_MAX_LENGTH 40
 

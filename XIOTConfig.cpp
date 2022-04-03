@@ -24,7 +24,7 @@ ModuleConfigClass::ModuleConfigClass(unsigned int version, const char* type, con
 void ModuleConfigClass::initFromDefault() {
   XEEPROMConfigClass::initFromDefault(); // handles version and name init 
   setName(_name);
-  setXiotSsid(DEFAULT_XIOT_APSSID);
+  setXiotSsid(getType());
   setXiotPwd(DEFAULT_XIOT_APPWD);
   setBoxSsid(DEFAULT_BOX_APSSID);
   setBoxPwd(DEFAULT_BOX_APPWD);
